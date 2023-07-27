@@ -1,12 +1,20 @@
 const express = require("express");
-
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const con = require("./src/utils/dbConnection");
+const home = require("./src/routes/homerouter");
+const api = require("./src/routes/apirouter");
+const user = require("./src/routes/userrouter");
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+const PORT = process.env.PORT || process.env.APP_PORT;
 
-app.get("/about", (req, res) => {
-  res.send("About route");
-});
-app.listen(3000, () => console.log("Server is listening to port 3000"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(home);
+app.use(api);
+app.use(user);
+
+app.listen(PORT);
+console.log("Server started at http://localhost:" + PORT);
