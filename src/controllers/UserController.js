@@ -20,7 +20,7 @@ exports.getUsers = (req, response, next) => {
  */
 exports.addUser = (req, response, next) => {
   const user = req.body;
-  if ((user.username || user.password).trim().length === 0) {
+  if ((user.username && user.password).trim().length === 0) {
     const error = new Error("User or pass too short");
     error.statusCode = 400;
     return next(error);
@@ -70,9 +70,9 @@ exports.verifyUser = (req, response, next) => {
     `SELECT * from users where username = '${user.username}' and password = '${user.password}' ;`,
     (err, res) => {
       if (res && res.length > 0) {
-        response.send("acount exists");
+        response.send(res);
       } else {
-        response.status(404).send("account doesent exist");
+        response.status(404).send("user doesent exist");
       }
     }
   );
