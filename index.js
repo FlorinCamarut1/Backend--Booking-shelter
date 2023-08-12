@@ -1,12 +1,25 @@
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const con = require("./src/utils/dbConnection");
+// const home = require("./src/routes/homerouter");
+// const api = require("./src/routes/apirouter");
+const user = require("./src/routes/UserRouter");
+const user1 = require("./src/routes/ShelterRouter");
 
 const app = express();
+app.use(cors({ origin: "http://localhost:3006", optionsSuccessStatus: 200 }));
+app.use(express.static("public"));
+const PORT = process.env.PORT || process.env.APP_PORT;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/about", (req, res) => {
-  res.send("About route");
-});
-app.listen(3000, () => console.log("Server is listening to port 3000"));
+// app.use(home);
+// app.use(api);
+app.use("/user", user);
+app.use("/shelters", user1);
+
+app.listen(PORT);
+console.log("Server started at http://localhost:" + PORT);
