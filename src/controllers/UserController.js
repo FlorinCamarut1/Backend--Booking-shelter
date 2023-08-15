@@ -51,7 +51,7 @@ exports.addUser = (req, response, next) => {
             // Handle the database insert error
             return next(err);
           }
-          response.send("ok");
+          response.send(res);
         }
       );
     }
@@ -101,6 +101,6 @@ exports.updateUser = (req, response, next) => {
 exports.deleteUser = (req, response, next) => {
   const id = req.params.iduser;
   db.query(`DELETE FROM users WHERE idusers = ${id}`, (err, res) => {
-    response.send("ok");
+    response.send(res);
   });
 };

@@ -3,9 +3,12 @@ const db = require("../utils/dbConnection");
 const fs = require("fs");
 
 exports.getShelters = (req, response, next) => {
-  db.query("select * from shelters;", (err, res) => {
-    response.send(res);
-  });
+  db.query(
+    "select a.id,a.name,a.lat,a.lng, a.image,b.region from shelters a, regions b where a.regionId = b.id ;",
+    (err, res) => {
+      response.send(res);
+    }
+  );
 };
 // const shelters = [];
 // res.forEach((shelter) => {

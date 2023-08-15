@@ -6,8 +6,8 @@ const con = require("./src/utils/dbConnection");
 // const home = require("./src/routes/homerouter");
 // const api = require("./src/routes/apirouter");
 const user = require("./src/routes/UserRouter");
-const user1 = require("./src/routes/ShelterRouter");
-
+const shelters = require("./src/routes/ShelterRouter");
+const Bookings = require("./src/routes/BookingRouter");
 const app = express();
 app.use(cors({ origin: "http://localhost:3006", optionsSuccessStatus: 200 }));
 app.use(express.static("public"));
@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(home);
 // app.use(api);
 app.use("/user", user);
-app.use("/shelters", user1);
+app.use("/shelters", shelters);
+app.use("/Bookings", Bookings);
 
 app.listen(PORT);
 console.log("Server started at http://localhost:" + PORT);
